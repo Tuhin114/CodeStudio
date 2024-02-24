@@ -12,3 +12,64 @@
 
 //    return result;
 // }
+
+// Better Approach
+/**
+ vector<int> getSecondOrderElements(int n, vector<int> a) {
+    int small = INT_MAX, secondSmall = INT_MAX;
+    int large = INT_MIN, secondLarge = INT_MIN;
+    vector<int> ans;
+
+    for(int i = 0; i < n; i++){
+        small = min(small, a[i]);
+        large = max(large, a[i]);
+    }
+
+    for(int i = 0; i < n; i++){
+        if(a[i] < secondSmall && a[i] != small){
+            secondSmall = a[i];
+        }else if (a[i] > secondLarge && a[i] != large){
+            secondLarge = a[i];
+        }
+    }
+
+    ans.push_back(secondLarge);
+    ans.push_back(secondSmall);
+
+    return ans;
+}
+
+*/
+
+// Optimal Approach
+/**
+ vector<int> getSecondOrderElements(int n, vector<int> a) {
+    int small = INT_MAX, secondSmall = INT_MAX;
+    int large = INT_MIN, secondLarge = INT_MIN;
+    vector<int> ans;
+
+    for(int i = 0; i < n; i++){
+        if(a[i] < small){
+            secondSmall = small;
+            small = a[i];
+        }else if(a[i] < secondSmall && a[i] != small){
+            secondSmall = a[i];
+        }
+    }
+
+    for(int i = 0; i < n; i++){
+        if(a[i] > large){
+            secondLarge = large;
+            large = a[i];
+        }else if (a[i] > secondLarge && a[i] != large){
+            secondLarge = a[i];
+        }
+    }
+
+    ans.push_back(secondLarge);
+    ans.push_back(secondSmall);
+
+    return ans;
+}
+
+*/
